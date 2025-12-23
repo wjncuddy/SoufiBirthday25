@@ -8,59 +8,56 @@ interface Cloud {
   duration: number;
   delay: number;
   opacity: number;
+  image: string;
 }
+
+const CLOUD_IMAGES = [
+  '/images/cloud1.svg',
+  '/images/cloud2.svg',
+  '/images/cloud3.svg',
+  '/images/cloud4.svg',
+];
 
 interface CloudsProps {
   count?: number;
   className?: string;
 }
 
-function CloudShape({ className = '' }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 200 100" className={className} fill="currentColor">
-      <ellipse cx="60" cy="60" rx="50" ry="30" />
-      <ellipse cx="100" cy="50" rx="40" ry="35" />
-      <ellipse cx="140" cy="55" rx="45" ry="28" />
-      <ellipse cx="80" cy="45" rx="35" ry="25" />
-      <ellipse cx="120" cy="60" rx="30" ry="22" />
-    </svg>
-  );
-}
-
 export function Clouds({ count = 6, className = '' }: CloudsProps) {
   const clouds = useMemo<Cloud[]>(() => {
     return Array.from({ length: count }, (_, i) => ({
       id: i,
-      y: 20 + Math.random() * 60,
-      scale: 0.5 + Math.random() * 1,
-      duration: 40 + Math.random() * 40,
-      delay: Math.random() * -40,
-      opacity: 0.3 + Math.random() * 0.4,
+      y: 15 + Math.random() * 65,
+      scale: 0.6 + Math.random() * 0.8,
+      duration: 50 + Math.random() * 40,
+      delay: Math.random() * -50,
+      opacity: 0.4 + Math.random() * 0.4,
+      image: CLOUD_IMAGES[Math.floor(Math.random() * CLOUD_IMAGES.length)],
     }));
   }, [count]);
 
   return (
     <div className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}>
       {clouds.map((cloud) => (
-        <motion.div
+        <motion.img
           key={cloud.id}
-          className="absolute text-white/30"
+          src={cloud.image}
+          alt=""
+          className="absolute"
           style={{
             top: `${cloud.y}%`,
-            width: `${150 * cloud.scale}px`,
+            width: `${200 * cloud.scale}px`,
             opacity: cloud.opacity,
           }}
-          initial={{ x: '-200px' }}
-          animate={{ x: 'calc(100vw + 200px)' }}
+          initial={{ x: '-250px' }}
+          animate={{ x: 'calc(100vw + 250px)' }}
           transition={{
             duration: cloud.duration,
             delay: cloud.delay,
             repeat: Infinity,
             ease: 'linear',
           }}
-        >
-          <CloudShape />
-        </motion.div>
+        />
       ))}
     </div>
   );

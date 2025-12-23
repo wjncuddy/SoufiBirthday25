@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-family-display: 'Playfair Display', serif;
+  --font-family-display: 'Bebas Neue', sans-serif;
   --font-family-sans: 'Inter', system-ui, sans-serif;
   --font-family-mono: 'JetBrains Mono', monospace;
 
@@ -160,11 +160,11 @@ body {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(212, 175, 55, 0.4) 50%,
+    rgba(212, 175, 55, 0.3) 50%,
     transparent 100%
   );
   background-size: 200% 100%;
-  animation: boarding-scan 3s ease-in-out infinite;
+  animation: boarding-scan 6s ease-in-out infinite;
 }
 
 .sky-gradient-night {

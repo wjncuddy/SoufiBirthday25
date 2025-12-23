@@ -25,7 +25,7 @@ interface ScrollIndicatorProps {
 export function ScrollIndicator({ className = '' }: ScrollIndicatorProps) {
   return (
     <motion.div
-      className={`absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 ${className}`}
+      className={`absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-3 ${className}`}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 1.5 }}
@@ -33,21 +33,17 @@ export function ScrollIndicator({ className = '' }: ScrollIndicatorProps) {
       <motion.span
         className="text-white/50 text-sm"
         animate={{ opacity: [0.5, 1, 0.5] }}
-        transition={{ duration: 2, repeat: Infinity }}
+        transition={{ duration: 2.5, repeat: Infinity }}
       >
         Scroll or swipe
       </motion.span>
-      <motion.div
-        className="w-6 h-10 rounded-full border-2 border-white/30 flex items-start justify-center p-1"
-        animate={{ y: [0, 5, 0] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      >
+      <div className="w-7 h-12 rounded-full border-2 border-white/30 flex items-start justify-center pt-2 pb-1">
         <motion.div
-          className="w-1.5 h-3 bg-white/50 rounded-full"
-          animate={{ y: [0, 12, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
+          className="w-1.5 h-3 bg-white/60 rounded-full"
+          animate={{ y: [0, 16, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
         />
-      </motion.div>
+      </div>
     </motion.div>
   );
 }
