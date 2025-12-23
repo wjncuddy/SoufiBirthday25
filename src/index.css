@@ -1,0 +1,234 @@
+@import "tailwindcss";
+
+@theme {
+  --font-family-display: 'Playfair Display', serif;
+  --font-family-sans: 'Inter', system-ui, sans-serif;
+  --font-family-mono: 'JetBrains Mono', monospace;
+
+  --color-sky-dawn: #ffecd2;
+  --color-sky-sunrise: #fcb69f;
+  --color-sky-day: #a8edea;
+  --color-sky-dusk: #fed6e3;
+  --color-sky-night: #0f172a;
+  --color-sky-deep: #020617;
+
+  --color-gold: #d4af37;
+  --color-gold-light: #f4d03f;
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-twinkle: twinkle 2s ease-in-out infinite;
+  --animate-drift: drift 20s linear infinite;
+  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+@keyframes drift {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100vw); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.6);
+  }
+}
+
+@keyframes plane-fly {
+  0% {
+    transform: translateX(-100%) translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(50vw) translateY(-30px) rotate(-5deg);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(150vw) translateY(-50px) rotate(-10deg);
+    opacity: 0;
+  }
+}
+
+@keyframes cloud-float {
+  0% {
+    transform: translateX(-200px);
+  }
+  100% {
+    transform: translateX(calc(100vw + 200px));
+  }
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes boarding-scan {
+  0%, 100% {
+    background-position: -100% 0;
+  }
+  50% {
+    background-position: 200% 0;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-family-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-display {
+  font-family: var(--font-family-display);
+}
+
+.font-mono {
+  font-family: var(--font-family-mono);
+}
+
+.text-gold {
+  color: var(--color-gold);
+}
+
+.bg-gold {
+  background-color: var(--color-gold);
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-twinkle {
+  animation: twinkle 2s ease-in-out infinite;
+}
+
+.animate-drift {
+  animation: drift 20s linear infinite;
+}
+
+.animate-plane-fly {
+  animation: plane-fly 15s ease-in-out infinite;
+}
+
+.animate-cloud-float {
+  animation: cloud-float 30s linear infinite;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.boarding-scan {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212, 175, 55, 0.4) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: boarding-scan 3s ease-in-out infinite;
+}
+
+.sky-gradient-night {
+  background: linear-gradient(
+    180deg,
+    #0f172a 0%,
+    #1e293b 30%,
+    #334155 60%,
+    #475569 100%
+  );
+}
+
+.sky-gradient-sunrise {
+  background: linear-gradient(
+    180deg,
+    #1e3a5f 0%,
+    #ff7e5f 40%,
+    #feb47b 70%,
+    #ffecd2 100%
+  );
+}
+
+.sky-gradient-day {
+  background: linear-gradient(
+    180deg,
+    #1e90ff 0%,
+    #87ceeb 50%,
+    #b0e0e6 100%
+  );
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Scrollbar hiding for smooth scroll sections */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Touch-friendly tap highlight */
+.tap-highlight {
+  -webkit-tap-highlight-color: rgba(212, 175, 55, 0.3);
+}
+
+/* Safe area for notched devices */
+.safe-area-inset {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
