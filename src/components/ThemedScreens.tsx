@@ -11,8 +11,12 @@ export function GateScreen({ title, message, icon }: ThemedScreenProps) {
     <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
       {/* Background image */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: 'url(/images/gate.jpg)' }}
+        className="absolute inset-0 bg-center"
+        style={{
+          backgroundImage: 'url(/images/gate.jpg)',
+          backgroundSize: 'auto 100%',
+          backgroundRepeat: 'no-repeat'
+        }}
       />
 
       {/* Night sky overlay */}
@@ -44,8 +48,12 @@ export function JetBridgeScreen({ title, message, icon }: ThemedScreenProps) {
     <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
       {/* Background image */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: 'url(/images/jet-bridge.jpg)' }}
+        className="absolute inset-0 bg-center"
+        style={{
+          backgroundImage: 'url(/images/jet-bridge.jpg)',
+          backgroundSize: 'auto 100%',
+          backgroundRepeat: 'no-repeat'
+        }}
       />
 
       {/* Night sky overlay */}
@@ -77,8 +85,12 @@ export function PlaneSeatScreen({ title, message, icon }: ThemedScreenProps) {
     <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
       {/* Background image */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: 'url(/images/seat.jpg)' }}
+        className="absolute inset-0 bg-center"
+        style={{
+          backgroundImage: 'url(/images/seat.jpg)',
+          backgroundSize: 'auto 100%',
+          backgroundRepeat: 'no-repeat'
+        }}
       />
 
       {/* Night sky overlay */}

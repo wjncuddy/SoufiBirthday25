@@ -79,28 +79,27 @@ export function TakeoffPlane({ className = '' }: AnimatedPlaneProps) {
   return (
     <motion.div
       className={`absolute pointer-events-none ${className}`}
-      style={{ bottom: '15%' }}
       initial={{
-        x: '-150px',
-        y: 0,
+        left: '-150px',
+        bottom: '15%',
         rotate: 0,
       }}
       animate={{
-        x: ['-150px', 'calc(50vw - 75px)', 'calc(100vw + 150px)'],
-        y: [0, 0, 'calc(-80vh)'],
+        left: ['calc(-150px)', 'calc(50%)', 'calc(100% + 150px)'],
+        bottom: ['15%', '15%', 'calc(100% + 100px)'],
         rotate: [0, 0, -30],
       }}
       transition={{
-        duration: 10,
+        duration: 12,
         repeat: Infinity,
-        ease: 'easeInOut',
-        times: [0, 0.4, 1],
+        ease: 'linear',
+        times: [0, 0.5, 1],
       }}
     >
       <img
         src="/images/plane-wheels.png"
         alt="Plane taking off"
-        className="w-32 h-auto drop-shadow-2xl"
+        className="w-28 md:w-36 h-auto drop-shadow-2xl"
         style={{ filter: 'brightness(1.1)' }}
       />
     </motion.div>
