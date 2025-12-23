@@ -4,7 +4,8 @@ import {
   Stars,
   Clouds,
   PlaneWithTrail,
-  LandingPlane,
+  TakeoffPlane,
+  Runway,
   BoardingPass,
   Confetti,
   HeroTitle,
@@ -12,9 +13,9 @@ import {
   Section,
   ScrollIndicator,
   ProgressDots,
+  GateScreen,
   JetBridgeScreen,
   PlaneSeatScreen,
-  InflightMealScreen,
 } from './components';
 
 type AppState = 'boarding' | 'journey';
@@ -26,29 +27,32 @@ const MESSAGES = {
   // The passenger name on the boarding pass
   passengerName: 'SOUFIANE',
 
-  // Flight details
-  flightNumber: 'BD2025',
-  origin: 'TODAY',
-  destination: 'FOREVER',
-  date: 'DEC 2025',
+  // Flight details (shown on boarding pass)
+  flightNumber: 'AB2025',
+  origin: 'Love [LOV]',
+  destination: 'You [YOU]',
+  gateNumber: 'A17',
+  seat: '1A',
+  boardingTime: 'Now',
+  departureTime: 'Forever',
 
   // Hero section title (after boarding)
   heroTitle: 'Happy Birthday Soufiane',
   heroSubtitle: 'A journey through the skies, for you',
 
-  // Themed message sections
-  jetBridge: {
-    title: 'Welcome Aboard',
+  // Themed message sections (Gate → Jet Bridge → Seat)
+  gateScreen: {
+    title: 'At The Gate',
     message: `[Your heartfelt opening message goes here. Talk about what makes Soufiane special, your first memories together, or what you love about him as an avgeek. This is placeholder text - make it your own!]`,
+    icon: '🛫',
+  },
+  jetBridge: {
+    title: 'Walking To You',
+    message: `[Share memories of your journey together - trips you've taken, adventures you've had, or metaphorical miles of growing together. Placeholder text for you to personalize.]`,
     icon: '✈️',
   },
   planeSeat: {
-    title: 'Miles Traveled Together',
-    message: `[Share memories of your journey together - trips you've taken, adventures you've had, or metaphorical miles of growing together. Placeholder text for you to personalize.]`,
-    icon: '🌍',
-  },
-  inflightMeal: {
-    title: 'Served With Love',
+    title: 'Settled In',
     message: `[Write about your future together - dreams, plans, adventures ahead. What destinations await? What's next in your flight plan? Make this yours!]`,
     icon: '💝',
   },
@@ -128,7 +132,7 @@ function App() {
 
             {/* Title above boarding pass */}
             <motion.div
-              className="text-center mb-8"
+              className="text-center mb-6 md:mb-8"
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.8 }}
@@ -147,10 +151,13 @@ function App() {
               flightNumber={MESSAGES.flightNumber}
               origin={MESSAGES.origin}
               destination={MESSAGES.destination}
-              date={MESSAGES.date}
+              gate={MESSAGES.gateNumber}
+              seat={MESSAGES.seat}
+              boardingTime={MESSAGES.boardingTime}
+              departureTime={MESSAGES.departureTime}
             />
 
-            <PlaneWithTrail className="top-[15%]" />
+            <PlaneWithTrail className="top-[12%]" />
           </motion.div>
         )}
 
@@ -186,7 +193,16 @@ function App() {
               <ScrollIndicator />
             </Section>
 
-            {/* Section 2: Jet Bridge */}
+            {/* Section 2: Gate */}
+            <Section className="snap-start p-0">
+              <GateScreen
+                title={MESSAGES.gateScreen.title}
+                message={MESSAGES.gateScreen.message}
+                icon={MESSAGES.gateScreen.icon}
+              />
+            </Section>
+
+            {/* Section 3: Jet Bridge */}
             <Section className="snap-start p-0">
               <JetBridgeScreen
                 title={MESSAGES.jetBridge.title}
@@ -195,7 +211,7 @@ function App() {
               />
             </Section>
 
-            {/* Section 3: Plane Seat */}
+            {/* Section 4: Plane Seat */}
             <Section className="snap-start p-0">
               <PlaneSeatScreen
                 title={MESSAGES.planeSeat.title}
@@ -204,20 +220,12 @@ function App() {
               />
             </Section>
 
-            {/* Section 4: Inflight Meal */}
-            <Section className="snap-start p-0">
-              <InflightMealScreen
-                title={MESSAGES.inflightMeal.title}
-                message={MESSAGES.inflightMeal.message}
-                icon={MESSAGES.inflightMeal.icon}
-              />
-            </Section>
-
-            {/* Section 5: Final Celebration */}
+            {/* Section 5: Final Celebration with Takeoff */}
             <Section className="sky-gradient-night snap-start">
               <Stars count={250} />
               <Confetti active={currentSection === totalSections - 1} />
-              <LandingPlane className="z-20" />
+              <Runway />
+              <TakeoffPlane className="z-20" />
 
               <div className="relative z-10 text-center px-6">
                 <motion.div
@@ -251,7 +259,7 @@ function App() {
                   </p>
                 </motion.div>
 
-                {/* Static decorative elements - no bouncing */}
+                {/* Static decorative elements */}
                 <motion.div
                   className="mt-12 flex justify-center gap-6"
                   initial={{ opacity: 0 }}

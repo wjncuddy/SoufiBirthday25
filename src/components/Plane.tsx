@@ -75,36 +75,79 @@ export function PlaneWithTrail({ className = '' }: AnimatedPlaneProps) {
   );
 }
 
-export function LandingPlane({ className = '' }: AnimatedPlaneProps) {
+export function TakeoffPlane({ className = '' }: AnimatedPlaneProps) {
   return (
     <motion.div
       className={`absolute pointer-events-none ${className}`}
+      style={{ bottom: '15%' }}
       initial={{
-        x: '-100px',
-        y: '-50px',
+        x: '-150px',
+        y: 0,
+        rotate: 0,
       }}
       animate={{
-        x: 'calc(100vw + 100px)',
-        y: 'calc(100vh + 50px)',
+        x: ['-150px', 'calc(50vw - 75px)', 'calc(100vw + 150px)'],
+        y: [0, 0, 'calc(-80vh)'],
+        rotate: [0, 0, -30],
       }}
       transition={{
-        duration: 12,
+        duration: 10,
         repeat: Infinity,
-        ease: 'linear',
+        ease: 'easeInOut',
+        times: [0, 0.4, 1],
       }}
     >
-      <div className="relative flex items-center">
-        {/* Landing lights */}
-        <motion.div
-          className="absolute -left-2 w-1 h-1 rounded-full bg-white"
-          animate={{ opacity: [1, 0.3, 1] }}
-          transition={{ duration: 0.5, repeat: Infinity }}
-        />
-        <Plane
-          size={60}
-          className="text-white/90 drop-shadow-lg transform rotate-[15deg]"
-        />
-      </div>
+      <img
+        src="/images/plane-wheels.png"
+        alt="Plane taking off"
+        className="w-32 h-auto drop-shadow-2xl"
+        style={{ filter: 'brightness(1.1)' }}
+      />
     </motion.div>
   );
+}
+
+export function Runway() {
+  return (
+    <div className="absolute bottom-0 left-0 right-0 pointer-events-none">
+      {/* Sky to ground gradient */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-800 to-transparent" />
+
+      {/* Horizon line */}
+      <div className="absolute bottom-[15%] left-0 right-0 h-px bg-white/20" />
+
+      {/* Ground/runway */}
+      <div className="absolute bottom-0 left-0 right-0 h-[15%] bg-gradient-to-t from-slate-900 via-slate-800 to-slate-700">
+        {/* Runway markings */}
+        <div className="absolute top-1/2 left-0 right-0 flex justify-center gap-8">
+          {Array.from({ length: 15 }).map((_, i) => (
+            <div
+              key={i}
+              className="w-12 h-1 bg-white/30 rounded"
+              style={{
+                opacity: 0.2 + (i / 15) * 0.3,
+                transform: `scaleX(${0.5 + (i / 15) * 0.5})`
+              }}
+            />
+          ))}
+        </div>
+        {/* Runway edge lights */}
+        <div className="absolute bottom-2 left-0 right-0 flex justify-around px-8">
+          {Array.from({ length: 20 }).map((_, i) => (
+            <motion.div
+              key={i}
+              className="w-1 h-1 rounded-full bg-amber-400"
+              animate={{ opacity: [0.4, 1, 0.4] }}
+              transition={{ duration: 1.5, delay: i * 0.1, repeat: Infinity }}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Keep LandingPlane for backwards compatibility but it's replaced by TakeoffPlane
+export function LandingPlane({ className = '' }: AnimatedPlaneProps) {
+  return <TakeoffPlane className={className} />;
 }
