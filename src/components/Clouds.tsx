@@ -12,10 +12,10 @@ interface Cloud {
 }
 
 const CLOUD_IMAGES = [
-  '/images/cloud1.svg',
-  '/images/cloud2.svg',
-  '/images/cloud3.svg',
-  '/images/cloud4.svg',
+  '/images/cloud1.png',
+  '/images/cloud2.png',
+  '/images/cloud3.png',
+  '/images/cloud4.png',
 ];
 
 interface CloudsProps {
