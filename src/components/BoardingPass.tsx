@@ -16,11 +16,11 @@ interface BoardingPassProps {
 export function BoardingPass({
   onBoard,
   passengerName = 'SOUFIANE',
-  flightNumber = 'AB2025',
+  flightNumber = 'SB2025',
   origin = 'Love [LOV]',
   destination = 'You [YOU]',
   gate = 'A17',
-  seat = '1A',
+  seat = '26K',
   boardingTime = 'Now',
   departureTime = 'Forever',
 }: BoardingPassProps) {
@@ -33,7 +33,7 @@ export function BoardingPass({
       transition={{ duration: 1.2, ease: 'easeOut' }}
     >
       <motion.div
-        className="relative bg-white rounded-[32px] shadow-2xl overflow-hidden tap-highlight cursor-pointer border border-gray-200"
+        className="relative bg-white rounded-[24px] shadow-2xl overflow-hidden tap-highlight cursor-pointer border border-gray-200"
         onClick={onBoard}
         whileTap={{ scale: 0.98 }}
       >
@@ -47,7 +47,7 @@ export function BoardingPass({
               background: 'linear-gradient(180deg, #ff6b6b 0% 14.28%, #feca57 14.28% 28.56%, #48dbfb 28.56% 42.84%, #1dd1a1 42.84% 57.12%, #5f27cd 57.12% 71.4%, #ff9ff3 71.4% 85.68%, #ff6b6b 85.68% 100%)'
             }}
           >
-            <p className="transform -rotate-90 whitespace-nowrap text-white font-bold tracking-widest text-[10px] md:text-xs drop-shadow-md">
+            <p className="transform -rotate-90 whitespace-nowrap text-white font-bold tracking-widest text-[10px] md:text-s">
               BOARDING PASS / CARTE D'EMBARQUEMENT
             </p>
           </div>
