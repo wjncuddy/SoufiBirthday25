@@ -1,73 +1,98 @@
-# React + TypeScript + Vite
+# Happy Birthday Soufiane - Aviation-Themed Interactive Experience
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An immersive, aviation-themed birthday card experience built with React, designed for the aviation enthusiast in your life.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Interactive Boarding Pass**: A realistic boarding pass that serves as the entry point, complete with animated scanning effect
+- **Scrollable Flight Journey**: Multiple sections with snap-scroll navigation
+- **Animated Sky Effects**: Twinkling stars, drifting clouds, and planes with contrails
+- **Message Cards**: Glass-morphism styled cards for your personal messages
+- **Celebration Finale**: Confetti animation and glowing text for the birthday wish
+- **Fully Responsive**: Works beautifully on Windows, iPad, and iPhone 12
 
-## React Compiler
+## Customizing Your Messages
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+All the text content is located in `src/App.tsx` in the `MESSAGES` object at the top of the file. You can customize:
 
-## Expanding the ESLint configuration
+```typescript
+const MESSAGES = {
+  // Boarding pass details
+  passengerName: 'SOUFIANE',
+  flightNumber: 'BD2025',
+  origin: 'TODAY',
+  destination: 'FOREVER',
+  date: 'DEC 2025',
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+  // Hero section
+  heroTitle: 'Happy Birthday Soufiane',
+  heroSubtitle: 'A journey through the skies, for you',
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
+  // Message sections (add, remove, or edit these)
+  sections: [
+    {
+      title: 'Section Title',
+      message: 'Your message here...',
+      icon: '✈️', // any emoji
     },
-  },
-])
+    // ... more sections
+  ],
+
+  // Final screen
+  finalTitle: 'Happy Birthday',
+  finalName: 'Soufiane',
+  finalMessage: 'Your final message...',
+  signOff: '— With all my love',
+};
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Local Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+# Install dependencies
+npm install
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+```
+
+## Deploy to Vercel
+
+1. Push your changes to GitHub
+2. Go to [vercel.com](https://vercel.com) and sign in
+3. Click "Add New Project"
+4. Import your GitHub repository
+5. Vercel will auto-detect the Vite configuration
+6. Click "Deploy"
+7. Share the generated URL with Soufiane!
+
+## Tech Stack
+
+- React 19 + TypeScript
+- Vite 7
+- Tailwind CSS 4
+- Framer Motion
+
+## Project Structure
+
+```
+src/
+├── App.tsx              # Main app with MESSAGES config
+├── index.css            # Global styles and animations
+├── main.tsx             # Entry point
+└── components/
+    ├── BoardingPass.tsx # Landing screen boarding pass
+    ├── Clouds.tsx       # Animated cloud layer
+    ├── Confetti.tsx     # Celebration confetti
+    ├── HeroTitle.tsx    # Animated title components
+    ├── MessageCard.tsx  # Glass-morphism message cards
+    ├── Plane.tsx        # Animated airplane SVGs
+    ├── Sections.tsx     # Section containers & UI
+    └── Stars.tsx        # Twinkling starfield
 ```
