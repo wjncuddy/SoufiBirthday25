@@ -47,26 +47,36 @@ export function PlaneWithTrail({ className = '' }: AnimatedPlaneProps) {
   return (
     <motion.div
       className={`absolute pointer-events-none ${className}`}
-      initial={{ x: '-200px' }}
-      animate={{ x: 'calc(100vw + 200px)' }}
+      initial={{ x: '-100vw' }}
+      animate={{ x: 'calc(100vw)' }}
       transition={{
-        duration: 35,
+        duration: 40,
         repeat: Infinity,
         ease: 'linear',
       }}
     >
       <div className="relative flex items-center">
-        {/* Contrails */}
+        {/* Contrails - positioned to intersect with wings */}
+        {/* Upper contrail */}
         <motion.div
-          className="absolute right-10 h-0.5 bg-gradient-to-l from-white/50 to-transparent"
-          style={{ width: '180px' }}
+          className="absolute h-0.5 bg-gradient-to-l from-white/60 to-transparent"
+          style={{
+            width: '400px',
+            right: '22px',
+            top: 'calc(50% - 16px)'
+          }}
           animate={{ opacity: [0.5, 0.25, 0.5] }}
           transition={{ duration: 3, repeat: Infinity }}
         />
+        {/* Lower contrail */}
         <motion.div
-          className="absolute right-10 mt-2 h-0.5 bg-gradient-to-l from-white/30 to-transparent"
-          style={{ width: '150px' }}
-          animate={{ opacity: [0.3, 0.15, 0.3] }}
+          className="absolute h-0.5 bg-gradient-to-l from-white/60 to-transparent"
+          style={{
+            width: '400px',
+            right: '22px',
+            top: 'calc(50% + 14px)'
+          }}
+          animate={{ opacity: [0.4, 0.2, 0.4] }}
           transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
         />
         <Plane size={40} className="text-white drop-shadow-lg" />
@@ -80,20 +90,38 @@ export function TakeoffPlane({ className = '' }: AnimatedPlaneProps) {
     <motion.div
       className={`absolute pointer-events-none ${className}`}
       initial={{
-        left: '-150px',
-        bottom: '15%',
+        left: '-200px',
+        bottom: '5%',
         rotate: 0,
       }}
       animate={{
-        left: ['calc(-150px)', 'calc(50%)', 'calc(100% + 150px)'],
-        bottom: ['15%', '15%', 'calc(100% + 100px)'],
-        rotate: [0, 0, -30],
+        left: [
+          '-200px',             // Start off left edge
+          'calc(50%)',          // Midway across runway
+          'calc(65%)',          // Liftoff point
+          'calc(68%)',          // Just after liftoff - rotation starts
+          'calc(100% + 300px)'  // Exit off right edge completely
+        ],
+        bottom: [
+          '5%',                 // On runway
+          '5%',                 // Still on runway
+          '5%',                 // Still on runway at liftoff point
+          '8%',                 // Just lifted - rotation starts here
+          'calc(100% + 300px)'  // Flying up and off screen top
+        ],
+        rotate: [
+          0,                    // Level on runway
+          0,                    // Still level
+          0,                    // Still level at liftoff
+          -8,                   // Nose starts tilting up after liftoff
+          -20                   // Climbing angle
+        ],
       }}
       transition={{
         duration: 12,
         repeat: Infinity,
-        ease: 'linear',
-        times: [0, 0.5, 1],
+        ease: [0.4, 0, 1, 1],   // Ease in only, no ease out - continuous acceleration
+        times: [0, 0.35, 0.5, 0.55, 1],
       }}
     >
       <img

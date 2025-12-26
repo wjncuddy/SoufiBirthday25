@@ -4,15 +4,11 @@ import {
   Stars,
   Clouds,
   PlaneWithTrail,
-  TakeoffPlane,
-  Runway,
   BoardingPass,
   Confetti,
   HeroTitle,
-  GlowText,
   Section,
   ScrollIndicator,
-  ProgressDots,
   GateScreen,
   JetBridgeScreen,
   PlaneSeatScreen,
@@ -25,43 +21,43 @@ type AppState = 'boarding' | 'journey';
 // =============================================================================
 const MESSAGES = {
   // The passenger name on the boarding pass
-  passengerName: 'SOUFIANE',
+  passengerName: 'SOUFIANE BOUKHABRINE',
 
   // Flight details (shown on boarding pass)
-  flightNumber: 'AB2025',
+  flightNumber: 'SB2025',
   origin: 'Love [LOV]',
-  destination: 'You [YOU]',
+  destination: 'Soufiane [SOU]',
   gateNumber: 'A17',
-  seat: '1A',
-  boardingTime: 'Now',
-  departureTime: 'Forever',
+  seat: '26K',
+  boardingTime: 'Forever & Always 💕',
+  departureTime: 'December 26 at 12:00am',
 
   // Hero section title (after boarding)
-  heroTitle: 'Happy Birthday Soufiane',
+  heroTitle: 'Happy    Birthday    Bestie',
   heroSubtitle: 'A journey through the skies, for you',
 
   // Themed message sections (Gate → Jet Bridge → Seat)
   gateScreen: {
-    title: 'At The Gate',
-    message: `[Your heartfelt opening message goes here. Talk about what makes Soufiane special, your first memories together, or what you love about him as an avgeek. This is placeholder text - make it your own!]`,
-    icon: '🛫',
+    title: 'At the gate!',
+    message: `Every birthday is a new destination. I'm so grateful that I've been with you for 4 of them. I'm so happy I got to capture those memories with you and I want you to know just how much you mean to me. I wish you all the happiness in the world and all around it!! We're going to have so many more adventures together. It's boarding time!`,
+    icon: '',
   },
   jetBridge: {
-    title: 'Walking To You',
-    message: `[Share memories of your journey together - trips you've taken, adventures you've had, or metaphorical miles of growing together. Placeholder text for you to personalize.]`,
-    icon: '✈️',
+    title: 'On the jet bridge',
+    message: `Have I got my phone? Did I fill my water? Do I have my boarding pass and my ID? Yes, yes, and yes. These are all the things you remind me of exactly when I need to hear them. Thank you for being my rock and the wind beneath my wings. I am so much better as a person because of everything YOU have done for me, and I'm always here to do the same for you.`,
+    icon: '',
   },
   planeSeat: {
-    title: 'Settled In',
-    message: `[Write about your future together - dreams, plans, adventures ahead. What destinations await? What's next in your flight plan? Make this yours!]`,
-    icon: '💝',
+    title: 'Ready for takeoff!',
+    message: `This is the year of our success, a year of transitions and change, where we will become unshackled from employers and middling economic status! Here's to you bestie and the guaranteed millions we will make together!`,
+    icon: '',
   },
 
   // Final celebration screen
   finalTitle: 'Happy Birthday',
   finalName: 'Soufiane',
-  finalMessage: `[Your final birthday wish - short and sweet. "With all my love" or something personal to your relationship.]`,
-  signOff: '— With all my love',
+  finalMessage: `Your Christmas and Birthday presents are coming home with me to Calgary soon! We're going to have the best ever celebration for you bestie :)`,
+  signOff: 'from your co-pilot, William 💖',
 };
 // =============================================================================
 
@@ -69,6 +65,7 @@ function App() {
   const [appState, setAppState] = useState<AppState>('boarding');
   const [currentSection, setCurrentSection] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   // Total sections: hero + 3 themed screens + finale
   const totalSections = 5;
@@ -77,19 +74,11 @@ function App() {
     setAppState('journey');
   }, []);
 
-  const scrollToSection = useCallback((index: number) => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const sections = container.querySelectorAll('section');
-    sections[index]?.scrollIntoView({ behavior: 'smooth' });
-  }, []);
-
+  // Track current section for video autoplay
   useEffect(() => {
     const container = containerRef.current;
     if (!container || appState !== 'journey') return;
 
-    // Set initial section on mount
     setCurrentSection(0);
 
     const handleScroll = () => {
@@ -110,10 +99,17 @@ function App() {
         }
       });
       setCurrentSection(newSection);
+
+      // Try to play video when on final section
+      if (newSection === 4 && videoRef.current) {
+        videoRef.current.play().catch(() => {
+          // Autoplay blocked, that's okay
+        });
+      }
     };
 
     container.addEventListener('scroll', handleScroll);
-    handleScroll(); // Call immediately to set initial state
+    handleScroll();
     return () => container.removeEventListener('scroll', handleScroll);
   }, [appState]);
 
@@ -141,7 +137,7 @@ function App() {
                 Now Boarding
               </p>
               <h1 className="font-display text-4xl md:text-5xl text-white tracking-wider">
-                Flight <span className="text-gold">{MESSAGES.flightNumber}</span>
+                Flight <span className="text-sky-400">{MESSAGES.flightNumber}</span>
               </h1>
             </motion.div>
 
@@ -170,13 +166,6 @@ function App() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
           >
-            {/* Progress dots */}
-            <ProgressDots
-              total={totalSections}
-              current={currentSection}
-              onDotClick={scrollToSection}
-            />
-
             {/* Section 1: Hero */}
             <Section className="sky-gradient-night snap-start">
               <Stars count={200} />
@@ -221,55 +210,84 @@ function App() {
             </Section>
 
             {/* Section 5: Final Celebration with Takeoff */}
-            <Section className="sky-gradient-night snap-start">
-              <Stars count={250} />
-              <Confetti active={currentSection === totalSections - 1} />
-              <Runway />
-              <TakeoffPlane className="z-20" />
-
-              <div className="relative z-10 text-center px-6">
-                <motion.div
-                  initial={{ scale: 0.9, opacity: 0 }}
-                  whileInView={{ scale: 1, opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8 }}
+            <Section className="snap-start p-0">
+              <div className="absolute w-full h-full flex items-center justify-center overflow-hidden">
+                {/* Background video */}
+                <video
+                  ref={videoRef}
+                  className="absolute inset-0 w-full h-full object-cover"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  onCanPlay={(e) => {
+                    const video = e.currentTarget;
+                    video.play().catch(() => {});
+                  }}
                 >
-                  <p className="text-white/60 text-lg md:text-xl mb-4 uppercase tracking-widest">
-                    {MESSAGES.finalTitle}
-                  </p>
-                  <h2 className="font-display text-6xl md:text-8xl lg:text-9xl mb-8 tracking-wider">
-                    <GlowText>
-                      <span className="text-gold">{MESSAGES.finalName}</span>
-                    </GlowText>
-                  </h2>
-                </motion.div>
+                  <source src="/images/takeoff.mp4" type="video/mp4" />
+                </video>
 
+                {/* Night sky overlay */}
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background: 'linear-gradient(180deg, rgba(15, 23, 42, 0.75) 0%, rgba(30, 41, 59, 0.7) 50%, rgba(51, 65, 85, 0.65) 100%)'
+                  }}
+                />
+
+                <Confetti active={currentSection === totalSections - 1} />
+
+                {/* Content card */}
                 <motion.div
-                  className="max-w-md mx-auto"
-                  initial={{ opacity: 0, y: 20 }}
+                  className="relative z-10 glass-dark rounded-3xl max-w-3xl mx-10 text-center"
+                  style={{ padding: '64px 48px' }}
+                  initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.5 }}
+                  viewport={{ once: true, margin: '-100px' }}
+                  transition={{ duration: 0.8, ease: 'easeOut' }}
                 >
-                  <p className="text-white/80 text-lg md:text-xl leading-relaxed mb-6">
-                    {MESSAGES.finalMessage}
-                  </p>
-                  <p className="text-gold font-display text-2xl tracking-wider">
-                    {MESSAGES.signOff}
-                  </p>
-                </motion.div>
+                  <motion.div
+                    initial={{ scale: 0.9, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                  >
+                    <p className="text-white/60 text-lg md:text-xl mb-4 uppercase tracking-widest">
+                      {MESSAGES.finalTitle}
+                    </p>
+                    <h2 className="font-display text-5xl md:text-6xl lg:text-7xl mb-8 tracking-wider">
+                      <span className="text-sky-400">{MESSAGES.finalName}</span>
+                    </h2>
+                  </motion.div>
 
-                {/* Static decorative elements */}
-                <motion.div
-                  className="mt-12 flex justify-center gap-6"
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 1 }}
-                >
-                  <span className="text-4xl">✈️</span>
-                  <span className="text-4xl">💝</span>
-                  <span className="text-4xl">✈️</span>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.5 }}
+                  >
+                    <p className="text-white/90 text-base md:text-lg leading-relaxed mb-6">
+                      {MESSAGES.finalMessage}
+                    </p>
+                    <p className="text-sky-400 font-display text-xl md:text-2xl tracking-wider">
+                      {MESSAGES.signOff}
+                    </p>
+                  </motion.div>
+
+                  {/* Static decorative elements */}
+                  <motion.div
+                    className="mt-8 flex justify-center gap-6"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 1 }}
+                  >
+                    <span className="text-4xl">✈️</span>
+                    <span className="text-4xl">💝</span>
+                    <span className="text-4xl">✈️</span>
+                  </motion.div>
                 </motion.div>
               </div>
             </Section>

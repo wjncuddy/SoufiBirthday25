@@ -61,9 +61,14 @@ export function ProgressDots({ total, current, className = '', onDotClick }: Pro
       {Array.from({ length: total }).map((_, i) => (
         <motion.button
           key={i}
-          className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 tap-highlight ${
-            i === current ? 'bg-gold scale-125' : 'bg-white/30'
+          className={`w-2 h-2 md:w-3 md:h-3 rounded-full tap-highlight ${
+            i === current ? 'bg-orange-500 scale-125' : 'bg-gray-400'
           }`}
+          animate={{
+            backgroundColor: i === current ? '#f97316' : '#9ca3af',
+            scale: i === current ? 1.25 : 1,
+          }}
+          transition={{ duration: 0.3, ease: 'easeInOut' }}
           onClick={() => onDotClick?.(i)}
           whileTap={{ scale: 1.5 }}
           aria-label={`Go to section ${i + 1}`}

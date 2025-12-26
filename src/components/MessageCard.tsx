@@ -20,7 +20,7 @@ export function MessageCard({
 }: MessageCardProps) {
   return (
     <motion.div
-      className={`glass-dark rounded-2xl p-6 md:p-8 max-w-lg mx-auto ${className}`}
+      className={`glass-dark rounded-2xl p-8 md:p-12 max-w-lg mx-auto ${className}`}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
@@ -28,7 +28,7 @@ export function MessageCard({
     >
       {icon && (
         <motion.div
-          className="text-4xl mb-4 flex justify-center"
+          className="text-4xl mb-6 flex justify-center"
           initial={{ scale: 0 }}
           whileInView={{ scale: 1 }}
           viewport={{ once: true }}
@@ -40,7 +40,7 @@ export function MessageCard({
 
       {title && (
         <motion.h3
-          className="font-display text-2xl md:text-3xl text-gold mb-4 text-center"
+          className="font-display text-2xl md:text-3xl text-gold mb-6 text-center"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -50,7 +50,7 @@ export function MessageCard({
         </motion.h3>
       )}
 
-      <div className="text-white/90 text-center leading-relaxed">
+      <div className="text-white/90 text-center leading-relaxed px-4 py-2">
         {typeof message === 'string' ? (
           <p className="text-base md:text-lg">{message}</p>
         ) : (
@@ -60,7 +60,7 @@ export function MessageCard({
 
       {subtitle && (
         <motion.p
-          className="text-sm text-white/50 text-center mt-4"
+          className="text-sm text-white/50 text-center mt-6"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}

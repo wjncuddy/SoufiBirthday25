@@ -24,8 +24,8 @@ export function HeroTitle({ title, subtitle, className = '' }: HeroTitleProps) {
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
           >
-            {word === 'Soufiane' ? (
-              <span className="text-gold">{word}</span>
+            {word === 'BEstie' ? (
+              <span className="text-sky-400">{word}</span>
             ) : (
               word
             )}
@@ -76,18 +76,8 @@ interface GlowTextProps {
 
 export function GlowText({ children, className = '' }: GlowTextProps) {
   return (
-    <motion.span
-      className={`relative inline-block ${className}`}
-      animate={{
-        textShadow: [
-          '0 0 20px rgba(212, 175, 55, 0.5)',
-          '0 0 40px rgba(212, 175, 55, 0.8)',
-          '0 0 20px rgba(212, 175, 55, 0.5)',
-        ],
-      }}
-      transition={{ duration: 2, repeat: Infinity }}
-    >
+    <span className={`relative inline-block ${className}`}>
       {children}
-    </motion.span>
+    </span>
   );
 }
