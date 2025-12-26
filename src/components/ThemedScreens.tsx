@@ -6,7 +6,7 @@ interface ThemedScreenProps {
   icon: string;
 }
 
-export function GateScreen({ title, message }: ThemedScreenProps) {
+export function GateScreen({ message }: ThemedScreenProps) {
   return (
     <div className="absolute w-full h-full flex items-center justify-center overflow-hidden">
       {/* Background image - full width */}
